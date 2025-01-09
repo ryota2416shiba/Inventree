@@ -1,0 +1,50 @@
+/home/project/
+├── app/                              # Next.jsのアプリケーションルートディレクトリ
+│   ├── about/                        # 会社概要ページ
+│   ├── auth/                         # 認証関連ページ
+│   │   ├── login/                    # ログインページ
+│   │   └── register/                 # 会員登録ページ
+│   ├── categories/                   # カテゴリー関連ページ
+│   │   └── [id]/                    # 個別カテゴリーページ（動的ルーティング）
+│   ├── chat/                         # チャット機能関連ページ
+│   │   └── [id]/                    # 個別チャットルームページ
+│   ├── checkout/                     # 決済関連ページ
+│   │   └── cart/                    # 買い物かごページ
+│   ├── manufacturers/               # メーカー情報管理ページ
+│   ├── notifications/               # 通知一覧ページ
+│   ├── products/                    # 商品関連ページ
+│   │   ├── [id]/                   # 商品詳細ページ
+│   │   └── create/                 # 商品出品ページ
+│   ├── globals.css                 # グローバルスタイル定義
+│   ├── layout.tsx                  # ルートレイアウトコンポーネント
+│   └── page.tsx                    # トップページ
+│
+├── components/                     # 再利用可能なコンポーネント
+│   ├── animations/                 # アニメーション関連コンポーネント
+│   │   └── FadeIn.tsx             # フェードインアニメーション
+│   ├── auth/                      # 認証関連コンポーネント
+│   │   ├── LoginForm.tsx          # ログインフォーム
+│   │   └── RegisterForm.tsx       # 会員登録フォーム
+│   ├── layout/                    # レイアウト関連コンポーネント
+│   │   ├── CategoryNav.tsx        # カテゴリーナビゲーション
+│   │   ├── Footer.tsx             # フッター
+│   │   └── Header.tsx             # ヘッダー
+│   ├── products/                  # 商品関連コンポーネント
+│   │   ├── ImageUpload.tsx        # 画像アップロード
+│   │   ├── ProductCard.tsx        # 商品カード
+│   │   ├── ProductDetail.tsx      # 商品詳細
+│   │   ├── ProductForm.tsx        # 商品出品フォーム
+│   │   └── ProductGrid.tsx        # 商品一覧グリッド
+│   └── ui/                        # UI基本コンポーネント（shadcn/ui）
+│
+├── lib/                           # ユーティリティと共通ロジック
+│   ├── api/                       # API関連
+│   │   └── client.ts             # APIクライアント
+│   ├── auth/                      # 認証関連
+│   │   └── session.ts            # セッション管理
+│   ├── constants.ts              # 定数定義
+│   └── utils.ts                  # ユーティリティ関数
+│
+└── types/                        # TypeScript型定義
+    ├── manufacturer.ts           # メーカー関連の型定義
+    └── product.ts               # 商品関連の型定義
