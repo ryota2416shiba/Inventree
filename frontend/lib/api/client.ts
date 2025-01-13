@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getSession } from "@/lib/auth/session";
+import { getSession } from "@/lib/api/auth";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
 
@@ -19,64 +19,8 @@ apiClient.interceptors.request.use(async (config) => {
   return config;
 });
 
-// レスポンスインターセプター（エラーハンドリング）
-apiClient.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      // 認証エラー時の処理
-      window.location.href = "/auth/login";
-    }
-    return Promise.reject(error);
-  }
-);
-
+// API オブジェクトを定義
 export const api = {
-  auth: {
-    login: async (credentials: { email: string; password: string }) => {
-      const response = await apiClient.post("/auth/login/", credentials);
-      return response.data;
-    },
-    register: async (userData: {
-      email: string;
-      password: string;
-      name: string;
-      accountType: string;
-      companyName?: string;
-      tier?: number;
-    }) => {
-      const response = await apiClient.post("/auth/register/", userData);
-      return response.data;
-    },
-    logout: async () => {
-      const response = await apiClient.post("/auth/logout/");
-      return response.data;
-    },
-  },
-  manufacturers: {
-    list: async () => {
-      const response = await apiClient.get("/manufacturers/");
-      return response.data;
-    },
-    get: async (id: string) => {
-      const response = await apiClient.get(`/manufacturers/${id}/`);
-      return response.data;
-    },
-    update: async (id: string, data: any) => {
-      const response = await apiClient.put(`/manufacturers/${id}/`, data);
-      return response.data;
-    },
-  },
-  notifications: {
-    list: async () => {
-      const response = await apiClient.get("/notifications/");
-      return response.data;
-    },
-    markAsRead: async (id: string) => {
-      const response = await apiClient.put(`/notifications/${id}/read/`);
-      return response.data;
-    },
-  },
   chat: {
     listRooms: async () => {
       const response = await apiClient.get("/chat/rooms/");
@@ -95,32 +39,4 @@ export const api = {
       return response.data;
     },
   },
-  products: {
-    list: async (params?: { category?: string; search?: string }) => {
-      const response = await apiClient.get("/products/", { params });
-      return response.data;
-    },
-    get: async (id: string) => {
-      const response = await apiClient.get(`/products/${id}/`);
-      return response.data;
-    },
-    create: async (data: FormData) => {
-      const response = await apiClient.post("/products/", data, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      return response.data;
-    },
-    update: async (id: string, data: FormData) => {
-      const response = await apiClient.put(`/products/${id}/`, data, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      return response.data;
-    },
-  },
 };
-
-export default api;

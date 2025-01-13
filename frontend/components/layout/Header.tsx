@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart, Menu, Search, User } from "lucide-react";
+import { ShoppingCart, Search, User } from "lucide-react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -13,6 +15,16 @@ import {
 import { CategoryNav } from "@/components/layout/CategoryNav";
 
 export default function Header() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const router = useRouter();
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/search?query=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
+
   return (
     <>
       <header className="border-b">
@@ -35,17 +47,20 @@ export default function Header() {
             </div>
 
             <div className="flex items-center space-x-4">
-              <div className="flex items-center gap-2">
-                <Button variant="ghost" size="icon">
-                  <Search className="h-5 w-5" />
-                </Button>
+              {/* 修正: 検索フォームを追加 */}
+              <form onSubmit={handleSearch} className="flex items-center gap-2">
                 <Input
                   type="search"
                   placeholder="商品を検索..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-[200px] md:w-[300px]"
                 />
-              </div>
-              
+                <Button type="submit" variant="ghost" size="icon">
+                  <Search className="h-5 w-5" />
+                </Button>
+              </form>
+
               <Link href="/checkout/cart">
                 <Button variant="ghost" size="icon">
                   <ShoppingCart className="h-5 w-5" />
@@ -71,7 +86,7 @@ export default function Header() {
           </div>
         </div>
       </header>
-      
+
       <div className="border-b bg-secondary/30">
         <div className="container mx-auto px-4 py-4">
           <div className="mb-4">

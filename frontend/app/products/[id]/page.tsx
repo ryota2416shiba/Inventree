@@ -1,17 +1,13 @@
+import { getProduct } from "@/lib/api/products";
 import { ProductDetail } from "@/components/products/ProductDetail";
-import { DUMMY_PRODUCTS } from "@/components/products/ProductGrid";
 
 interface ProductPageProps {
-  params: {
-    id: string;
-  };
+  params: { id: string };
 }
 
-export default function ProductPage({ params }: ProductPageProps) {
-  // TODO: APIから商品データを取得
-  const product = DUMMY_PRODUCTS.find(
-    (p) => p.id === parseInt(params.id, 10)
-  );
+export default async function ProductPage({ params }: ProductPageProps) {
+  // API から商品データを取得
+  const product = await getProduct(params.id);
 
   if (!product) {
     return <div>商品が見つかりません</div>;

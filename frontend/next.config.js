@@ -1,10 +1,8 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  output: 'export',
-  eslint: {
-    ignoreDuringBuilds: true,
+module.exports = {
+  env: {
+    NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000/api",
   },
-  images: { unoptimized: true },
+  images: {
+    domains: ["images.unsplash.com"], // Unsplashの画像を許可
+  },
 };
-
-module.exports = nextConfig;

@@ -19,7 +19,7 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useToast } from "@/components/ui/use-toast";
 import api from "@/lib/api/client";
-import { setSession } from "@/lib/auth/session";
+import { setSession } from "@/lib/api/auth";
 
 const loginSchema = z.object({
   email: z.string().email("有効なメールアドレスを入力してください"),
